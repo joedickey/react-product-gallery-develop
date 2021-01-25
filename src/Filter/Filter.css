@@ -1,0 +1,23 @@
+.Filter_input {
+    border-radius:4px;
+    width:50px;
+    height:30px;
+    font-family:SourceSansPro-Regular;
+    font-size:15px;
+    border: 1px solid rgba(123,123,123,0.78);
+    color: rgba(123,123,123,0.78);
+    line-height:31px;
+    text-align:left;
+    margin-right: 5px;
+}
+
+button {
+    border-radius: 4px;
+    margin-top: 5px;
+    min-width: 50px;
+    height: 35px;
+    font-family:SourceSansPro-Regular;
+    font-size:15px;
+    border: none;
+    background-color: #f8cb00;
+}

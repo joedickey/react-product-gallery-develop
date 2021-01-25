@@ -1,0 +1,16 @@
+.Header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color:#f8cb00;
+    padding: 0px 50px;
+    height:166px;
+}
+
+.Header_title {
+    font-size:36px;
+    color:#ffffff;
+    line-height:33px;
+    text-align:left;
+    margin-right: 15px;
+}

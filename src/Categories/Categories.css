@@ -1,0 +1,16 @@
+.Categories_option {
+    color:rgba(123, 123, 123, 0.8);
+}
+
+.Categories_option:hover {
+    cursor: pointer;
+    color:rgb(77, 77, 77);
+}
+
+.selected {
+    color: #f8cb00;
+}
+
+.selected:hover {
+    cursor: pointer;
+}

@@ -1,0 +1,31 @@
+.ProductList {
+    flex: 3;
+}
+
+.ProductList_title {
+    margin-left: 18px;
+    margin-top: 15px;
+}
+
+.ProductList_display {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 0px;
+    width: 1000px;
+}
+
+.ProductList_item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 320px;
+    width: 200px;
+    border-radius:4px;
+    font-family:SourceSansPro-Regular;
+    font-size:15px;
+    border: none;
+    box-shadow:0 4px 14px rgba(123,123,123,0.3); 
+    margin: 20px 20px 20px 20px; 
+    padding: 10px 0px; 
+}
