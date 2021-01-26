@@ -8,7 +8,8 @@ export default class CartDetail extends Component {
   static contextType = AmazingStoreContext;
 
   handleClick = (e, callback) => {
-    callback(e.target.id)
+    const idx = e.target.id.slice(4)
+    callback(idx);
   }
 
   render() {
@@ -17,14 +18,14 @@ export default class CartDetail extends Component {
       return (
         <AmazingStoreContext.Consumer key={`cart_${idx}${item.id}`}>
           {({removeFromCart}) => (
-            <div className='CartDetail_item' id={item.id}>
+            <div className='CartDetail_item'>
               <div className='CartDetail_left'>
                 <img className='CartDetail_image' src={item.images.medium} alt={item.name}></img>
                 <p className='CartDetail_name' >{item.name}</p>
               </div>
               <div className='CartDetail_right'>
                 <p className='CartDetail_price' >${item.price.toFixed(2)}</p>
-                <button className='CartDetail_remove' type='button' id={item.id} onClick={(e)=> this.handleClick(e, removeFromCart)}>
+                <button className='CartDetail_remove' type='button' id={`crt_${idx}`} onClick={(e)=> this.handleClick(e, removeFromCart)}>
                   Remove
                 </button>
               </div>

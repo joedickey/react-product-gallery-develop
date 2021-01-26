@@ -19,7 +19,13 @@ export default class ProductList extends Component {
     }
     
     handleClick = (e, callback) => {
-        callback(e.target.id);
+        if(!e.target.id) {
+            const id = e.target.parentNode.getAttribute('id').slice(4) // to prevent duplicate IDs
+            callback(id)
+        } else {
+            const id = e.target.id.slice(4)
+            callback(id);
+        }
         if(!this.state.modalIsOpen) { // do not close modal when clicking related product
             this.toggleModal();
         }
@@ -27,7 +33,13 @@ export default class ProductList extends Component {
 
     handleAddClick = (e, callback) => {
         e.stopPropagation();
-        callback(e.target.id)
+        if(!e.target.id) {
+            const id = e.target.parentNode.getAttribute('id').slice(4) // to prevent duplicate IDs
+            callback(id)
+        } else {
+            const id = e.target.id.slice(4)
+            callback(id);
+        }
     }
 
     componentDidMount() {
@@ -54,13 +66,13 @@ export default class ProductList extends Component {
         const categoryTitle = this.context.categories[categoryIndex].name
         const items = this.context.displayProducts.map((product, idx) => {
             return (
-                <AmazingStoreContext.Consumer key={`item_${idx}`}>
+                <AmazingStoreContext.Consumer key={`itm_${idx}`}>
                     {({updateCurrProduct, addToCart}) => (
-                        <div className='ProductList_item' id={product.id} onClick={(e) => this.handleClick(e, updateCurrProduct)}>
-                            <img src={product.images.medium} alt={product.name} id={product.id}></img>
-                            <p className='Item_name' id={product.id}>{product.name}</p>
-                            <p className='Item_price' id={product.id}>${product.price}</p>
-                            <button type='button' id={product.id} onClick={(e)=> this.handleAddClick(e, addToCart)}>Add To Cart</button>
+                        <div className='ProductList_item' id={`itm_${product.id}`} onClick={(e) => this.handleClick(e, updateCurrProduct)}>
+                            <img src={product.images.medium} alt={product.name}></img>
+                            <p className='Item_name'>{product.name}</p>
+                            <p className='Item_price'>${product.price}</p>
+                            <button type='button' onClick={(e)=> this.handleAddClick(e, addToCart)}>Add To Cart</button>
                         </div>
                     )}
                 </AmazingStoreContext.Consumer>
@@ -71,9 +83,9 @@ export default class ProductList extends Component {
             return (
                 <AmazingStoreContext.Consumer key={`rel_${idx}${product.id}`}>
                     {({updateCurrProduct}) => (
-                        <div className='RelatedProduct' id={product.id} onClick={(e) => this.handleClick(e, updateCurrProduct)}>
-                            <img className='RelatedProduct_image' src={product.images.medium} alt={product.name} id={product.id}></img>
-                            <p className='RelatedProduct_name' id={product.id}>{product.name}</p>
+                        <div className='RelatedProduct' id={`rel_${product.id}`} onClick={(e) => this.handleClick(e, updateCurrProduct)}>
+                            <img className='RelatedProduct_image' src={product.images.medium} alt={product.name}></img>
+                            <p className='RelatedProduct_name'>{product.name}</p>
                         </div>
                     )}
                 </AmazingStoreContext.Consumer>
@@ -104,7 +116,7 @@ export default class ProductList extends Component {
                                     <h2 className='ItemDetail_name' >{currProduct.name}</h2>
                                     <h2 className='ItemDetail_price'>${currProduct.price}</h2>
                                     <p className='ItemDetail_desc'>{currProduct.description}</p>
-                                    <button type='button' id={currProduct.id} onClick={(e)=> this.handleAddClick(e, addToCart)}>Add To Cart</button> 
+                                    <button type='button' id={`det_${currProduct.id}`} onClick={(e)=> this.handleAddClick(e, addToCart)}>Add To Cart</button> 
                                     <div className='ItemDetail_related'>
                                         <h4 id='related_title'>Related Products:</h4>
                                         {relatedProducts.length === 0 ? 'No related products' : relatedProducts }

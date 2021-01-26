@@ -111,11 +111,11 @@ export default class App extends Component {
     })
   }
 
-  removeFromCart = (id) => {
-    const cartItems = this.state.cartItems.filter(item => item.id !== Number(id))
+  removeFromCart = (idx) => {
+    this.state.cartItems.splice(idx, 1) // using index instead of ID to avoid deleting all items of same kind at once in the cart
 
     this.setState({
-      cartItems: cartItems
+      cartItems: this.state.cartItems
     })
   }
  

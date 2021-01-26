@@ -6,7 +6,8 @@ export default class Categories extends Component {
     static contextType = AmazingStoreContext;
 
     handleClick = (e, callback) => {
-        callback(e.target.id)
+        const id = e.target.id.slice(4) // to prevent duplicate IDs
+        callback(id)
     }
 
   render() {
@@ -14,7 +15,7 @@ export default class Categories extends Component {
       const categories = this.context.categories.map((category, idx) => 
         <p 
             className={`${currCategoryId === category.id ? 'selected' : 'Categories_option'}`} 
-            key={`cat_${idx}`} id={category.id} 
+            key={`cat_${idx}`} id={`cat_${category.id}`} 
             onClick={(e) => this.handleClick(e, this.context.updateCurrCategory)}>
             {category.name}
         </p>)
