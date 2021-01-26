@@ -1,3 +1,8 @@
+.SearchBar_form i {
+    position: relative; 
+    color: gray; 
+}
+
 .SearchBar_input {
     border-radius:4px;
     width:600px;
@@ -5,8 +10,17 @@
     border: none;
     font-family:SourceSansPro-Regular;
     font-size:15px;
-    color:rgba(123,123,123,0.78);
+    color:rgba(123,123,123,1);
     letter-spacing:0;
     line-height:31px;
     text-align:left;
-}       
+    padding-left: 50px;
+}  
+
+.SearchBar_icon {
+    position: fixed;
+    color: rgba(123,123,123,1);
+    top: 73px;
+    margin-left: 15px;
+    
+}

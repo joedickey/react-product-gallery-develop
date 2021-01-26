@@ -1,3 +1,7 @@
+.Filter {
+    margin-bottom: 30px;
+}
+
 .Filter_input {
     border-radius:4px;
     width:50px;
@@ -20,4 +24,9 @@ button {
     font-size:15px;
     border: none;
     background-color: #f8cb00;
+}
+
+button:hover {
+    cursor: pointer;
+    color: white;
 }

@@ -11,7 +11,14 @@ export default class Categories extends Component {
 
   render() {
       const currCategoryId = this.context.currCategoryId
-      const categories = this.context.categories.map((category, idx) => <p className={`${currCategoryId === category.id ? 'selected' : 'Categories_option'}`} key={`cat_${idx}`} id={category.id} onClick={(e) => this.handleClick(e, this.context.updateCurrCategory)}>{category.name}</p>)
+      const categories = this.context.categories.map((category, idx) => 
+        <p 
+            className={`${currCategoryId === category.id ? 'selected' : 'Categories_option'}`} 
+            key={`cat_${idx}`} id={category.id} 
+            onClick={(e) => this.handleClick(e, this.context.updateCurrCategory)}>
+            {category.name}
+        </p>)
+
     return (
       <div className='Categories'>
         <h4>ALL CATEGORIES</h4>

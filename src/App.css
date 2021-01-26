@@ -10,3 +10,11 @@ body {
 .View_wrapper {
   margin: 20px 50px;
 }
+
+h3 {
+  margin: 0px;
+}
+
+h4 {
+  margin-bottom: 5px;
+}

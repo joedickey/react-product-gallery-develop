@@ -9,7 +9,7 @@ export default class Header extends Component {
       <div className='Header'>
         <h1 className='Header_title'>Amazing Store</h1>
         <SearchBar />
-        <CartSubtotal />
+        <CartSubtotal/>
       </div>
     )
   }

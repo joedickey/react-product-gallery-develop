@@ -16,7 +16,7 @@ export default class Sort extends Component {
         <AmazingStoreContext.Consumer>
             {({updateSort}) => (
                 <select name='Sort_select' id='Sort_select' value={this.context.sort} onChange={(e) => this.handleChange(e, updateSort)}>
-                    <option value='featured'>Featured</option>
+                    <option value='default'>Default</option>
                     <option value='low to high'>Price: Low to High</option>
                     <option value='high to low'>Price: High to Low</option>
                 </select>
