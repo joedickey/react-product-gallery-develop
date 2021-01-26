@@ -9,7 +9,8 @@ export default class ProductList extends Component {
     static contextType = AmazingStoreContext;
 
     state = {
-        modalIsOpen: false
+        modalIsOpen: false,
+        modalToastVisible: false
     }
 
     toggleModal = () => {
@@ -31,8 +32,13 @@ export default class ProductList extends Component {
         }
     }
 
-    handleAddClick = (e, callback) => {
+    handleAddClick = (e, callback, toastVisible) => {
         e.stopPropagation();
+        if(this.state.modalIsOpen) {
+            this.updateModalToastVisible() // conditionally render toast pop-up based on if Modal is open or not
+        } else {
+            toastVisible();
+        }
         if(!e.target.id) {
             const id = e.target.parentNode.getAttribute('id').slice(4) // to prevent duplicate IDs
             callback(id)
@@ -40,6 +46,18 @@ export default class ProductList extends Component {
             const id = e.target.id.slice(4)
             callback(id);
         }
+    }
+
+    updateModalToastVisible = () => {
+        this.setState({
+            modalToastVisible: true
+        });
+      
+        setTimeout(() => {
+            this.setState({
+                modalToastVisible: false
+            });
+        }, 1000);
     }
 
     componentDidMount() {
@@ -67,12 +85,12 @@ export default class ProductList extends Component {
         const items = this.context.displayProducts.map((product, idx) => {
             return (
                 <AmazingStoreContext.Consumer key={`itm_${idx}`}>
-                    {({updateCurrProduct, addToCart}) => (
+                    {({updateCurrProduct, addToCart, updateToastVisible}) => (
                         <div className='ProductList_item' id={`itm_${product.id}`} onClick={(e) => this.handleClick(e, updateCurrProduct)}>
                             <img src={product.images.medium} alt={product.name}></img>
                             <p className='Item_name'>{product.name}</p>
                             <p className='Item_price'>${product.price}</p>
-                            <button type='button' onClick={(e)=> this.handleAddClick(e, addToCart)}>Add To Cart</button>
+                            <button type='button' onClick={(e)=> this.handleAddClick(e, addToCart, updateToastVisible)}>Add To Cart</button>
                         </div>
                     )}
                 </AmazingStoreContext.Consumer>
@@ -103,10 +121,13 @@ export default class ProductList extends Component {
             style={modalStyles} 
             onRequestClose={this.toggleModal}>
                 <AmazingStoreContext.Consumer>
-                    {({currProduct, addToCart}) => (
+                    {({currProduct, addToCart, updateToastVisible}) => (
                         <div className='ItemDetail' >
                             <div className='ItemDetail_top'>
                                 <FontAwesomeIcon className='ItemDetail_icon' icon={faTimes} size='2x' onClick={() => this.toggleModal()}/>
+                            </div>
+                            <div className={`Modal_toast ${this.state.modalToastVisible ? 'Modal_toast_visible' : ''}`}> 
+                                Item Added.
                             </div>
                             <div className='ItemDetail_bottom'>
                                 <div className='ItemDetail_left'>
@@ -116,7 +137,7 @@ export default class ProductList extends Component {
                                     <h2 className='ItemDetail_name' >{currProduct.name}</h2>
                                     <h2 className='ItemDetail_price'>${currProduct.price}</h2>
                                     <p className='ItemDetail_desc'>{currProduct.description}</p>
-                                    <button type='button' id={`det_${currProduct.id}`} onClick={(e)=> this.handleAddClick(e, addToCart)}>Add To Cart</button> 
+                                    <button type='button' id={`det_${currProduct.id}`} onClick={(e)=> this.handleAddClick(e, addToCart, updateToastVisible)}>Add To Cart</button> 
                                     <div className='ItemDetail_related'>
                                         <h4 id='related_title'>Related Products:</h4>
                                         {relatedProducts.length === 0 ? 'No related products' : relatedProducts }

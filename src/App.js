@@ -20,7 +20,8 @@ export default class App extends Component {
     searchVal: '',
     priceMin: '',
     priceMax: '',
-    sort: 'default'
+    sort: 'default',
+    toastVisible: false
   }
 
   filterByCategory = (catId) => {
@@ -195,6 +196,18 @@ export default class App extends Component {
     this.sortBy(selection)
   }
 
+  updateToastVisible = () => {
+    this.setState({
+      toastVisible: true
+    });
+
+    setTimeout(() => {
+      this.setState({
+          toastVisible: false
+      });
+    }, 1000);
+  }
+
   componentDidMount() {
     this.filterByCategory(this.state.currCategoryId) // initializes state with items from first category
   }
@@ -212,6 +225,7 @@ export default class App extends Component {
       priceMin: this.state.priceMin,
       priceMax: this.state.priceMax,
       sort: this.state.sort,
+      toastVisible: this.state.toastVisible,
       updateSearch: this.updateSearch,
       updateCurrCategory: this.updateCurrCategory,
       updatePriceMin: this.updatePriceMin, 
@@ -220,7 +234,8 @@ export default class App extends Component {
       filterByPrice: this.filterByPrice,
       updateCurrProduct: this.updateCurrProduct,
       addToCart: this.addToCart,
-      removeFromCart: this.removeFromCart
+      removeFromCart: this.removeFromCart,
+      updateToastVisible: this.updateToastVisible
     }
 
     return (

@@ -12,6 +12,7 @@ const AmazingStoreContext = React.createContext({
     priceMin: '',
     priceMax: '',
     sort: '',
+    toastVisible: false,
     updateSearch: () => {},
     updateCurrCategory: () => {},
     updatePriceMin: () => {}, 
@@ -20,7 +21,8 @@ const AmazingStoreContext = React.createContext({
     filterByPrice: () => {},
     updateCurrProduct: () => {},
     addToCart: () => {},
-    removeFromCart: () => {}
+    removeFromCart: () => {},
+    updateToastVisible: () => {}
 })
 
 export default AmazingStoreContext;

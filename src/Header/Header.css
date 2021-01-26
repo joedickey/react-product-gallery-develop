@@ -18,3 +18,31 @@
 .Header_title:hover {
     cursor: pointer;
 }
+
+.Header_toast {
+    position: fixed;
+    top: 100px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    max-width: 100px;
+    text-align: center;
+    padding: 10px;
+    border-radius:4px;
+    font-size:15px;
+    border: none;
+    box-shadow:0 4px 14px rgba(123,123,123,0.3); 
+    background-color: #f8cb00;
+    color: white;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s, top 0.2s, visibility 0.2s;
+    
+    
+}
+
+.toast_visible {
+    top:200px;
+    visibility: visible;
+    opacity: 1;
+}

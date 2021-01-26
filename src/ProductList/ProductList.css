@@ -22,7 +22,6 @@
     height: 320px;
     width: 200px;
     border-radius:4px;
-    font-family:SourceSansPro-Regular;
     font-size:15px;
     border: none;
     box-shadow:0 4px 14px rgba(123,123,123,0.3); 
@@ -44,7 +43,6 @@
     justify-content: space-evenly;
     width: 800px;
     border-radius:4px;
-    font-family:SourceSansPro-Regular;
     font-size:15px;
     padding: 30px 20px;
 }
@@ -85,7 +83,6 @@
     justify-content: flex-start;
     align-items: center;
     border-radius:4px;
-    font-family:SourceSansPro-Regular;
     font-size:15px;
     border: none;
     max-width: 250px;
@@ -103,6 +100,32 @@
 
 .RelatedProduct_image {
     height: 80px;
+}
+
+.Modal_toast {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    max-width: 100px;
+    text-align: center;
+    padding: 10px;
+    border-radius:4px;
+    font-size:15px;
+    border: none;
+    box-shadow:0 4px 14px rgba(123,123,123,0.3); 
+    background-color: #f8cb00;
+    color: white;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s, top 0.2s, visibility 0.2s;  
+}
+
+.Modal_toast_visible {
+    top: 25px;
+    visibility: visible;
+    opacity: 1;
 }
 
 #related_title {
