@@ -19,8 +19,15 @@ export default class ProductList extends Component {
     }
     
     handleClick = (e, callback) => {
+        callback(e.target.id);
+        if(!this.state.modalIsOpen) { // do not close modal when clicking related product
+            this.toggleModal();
+        }
+    }
+
+    handleAddClick = (e, callback) => {
+        e.stopPropagation();
         callback(e.target.id)
-        this.toggleModal()
     }
 
     componentDidMount() {
@@ -48,11 +55,25 @@ export default class ProductList extends Component {
         const items = this.context.displayProducts.map((product, idx) => {
             return (
                 <AmazingStoreContext.Consumer key={`item_${idx}`}>
-                    {({updateCurrProduct}) => (
+                    {({updateCurrProduct, addToCart}) => (
                         <div className='ProductList_item' id={product.id} onClick={(e) => this.handleClick(e, updateCurrProduct)}>
                             <img src={product.images.medium} alt={product.name} id={product.id}></img>
                             <p className='Item_name' id={product.id}>{product.name}</p>
                             <p className='Item_price' id={product.id}>${product.price}</p>
+                            <button type='button' id={product.id} onClick={(e)=> this.handleAddClick(e, addToCart)}>Add To Cart</button>
+                        </div>
+                    )}
+                </AmazingStoreContext.Consumer>
+            )
+        })
+
+        const relatedProducts = this.context.relatedProducts.map((product, idx) => {
+            return (
+                <AmazingStoreContext.Consumer key={`rel_${idx}${product.id}`}>
+                    {({updateCurrProduct}) => (
+                        <div className='RelatedProduct' id={product.id} onClick={(e) => this.handleClick(e, updateCurrProduct)}>
+                            <img className='RelatedProduct_image' src={product.images.medium} alt={product.name} id={product.id}></img>
+                            <p className='RelatedProduct_name' id={product.id}>{product.name}</p>
                         </div>
                     )}
                 </AmazingStoreContext.Consumer>
@@ -70,7 +91,7 @@ export default class ProductList extends Component {
             style={modalStyles} 
             onRequestClose={this.toggleModal}>
                 <AmazingStoreContext.Consumer>
-                    {({currProduct}) => (
+                    {({currProduct, addToCart}) => (
                         <div className='ItemDetail' >
                             <div className='ItemDetail_top'>
                                 <FontAwesomeIcon className='ItemDetail_icon' icon={faTimes} size='2x' onClick={() => this.toggleModal()}/>
@@ -82,7 +103,12 @@ export default class ProductList extends Component {
                                 <div className='ItemDetail_right'>
                                     <h2 className='ItemDetail_name' >{currProduct.name}</h2>
                                     <h2 className='ItemDetail_price'>${currProduct.price}</h2>
-                                    <p className='ItemDetail_desc'>{currProduct.description}</p> 
+                                    <p className='ItemDetail_desc'>{currProduct.description}</p>
+                                    <button type='button' id={currProduct.id} onClick={(e)=> this.handleAddClick(e, addToCart)}>Add To Cart</button> 
+                                    <div className='ItemDetail_related'>
+                                        <h4 id='related_title'>Related Products:</h4>
+                                        {relatedProducts.length === 0 ? 'No related products' : relatedProducts }
+                                    </div>
                                 </div>  
                             </div>
                         </div>

@@ -4,6 +4,7 @@ const AmazingStoreContext = React.createContext({
     products: [],
     displayProducts: [],
     currProduct: {},
+    relatedProducts: [],
     categories: [],
     currCategoryId: '',
     cartItems: [],
@@ -17,7 +18,9 @@ const AmazingStoreContext = React.createContext({
     updatePriceMax: () => {},
     updateSort: () => {},
     filterByPrice: () => {},
-    updateCurrProduct: () => {}
+    updateCurrProduct: () => {},
+    addToCart: () => {},
+    removeFromCart: () => {}
 })
 
 export default AmazingStoreContext;

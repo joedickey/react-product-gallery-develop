@@ -13,6 +13,7 @@ export default class App extends Component {
     products: products,
     displayProducts: [],
     currProduct: {},
+    relatedProducts: [],
     categories: categories,
     currCategoryId: 1,
     cartItems: [],
@@ -39,6 +40,7 @@ export default class App extends Component {
     this.setState({
       displayProducts: displayProducts,
     })
+
   }
 
   filterByPrice = (min, max) => { // filters based on which values are entered (either both, just min, or just max)
@@ -47,7 +49,8 @@ export default class App extends Component {
 
       this.setState({
         displayProducts: displayProducts,
-        sort: 'default'
+        searchVal: '', // clears search value and
+        sort: 'default' // sets order to default on new price submit
       })
   
     } else if (min !== '') {
@@ -55,6 +58,7 @@ export default class App extends Component {
 
       this.setState({
         displayProducts: displayProducts,
+        searchVal: '',
         sort: 'default'
       })
     } else if (max !== '') {
@@ -62,56 +66,11 @@ export default class App extends Component {
 
       this.setState({
         displayProducts: displayProducts,
+        searchVal: '',
         sort: 'default'
       })
     } else {
       this.filterByCategory(this.state.currCategoryId) // when values are cleared it defaults to display all products in category
-    }
-  }
- 
-  updateSearch = (val) => {
-    this.setState({
-      searchVal: val,
-    })
-
-    this.filterBySearch(val)
-  }
-
-  updateCurrProduct = (id) => {
-    const currProduct = this.state.displayProducts.filter(product => product.id === Number(id))
-
-    this.setState({
-      currProduct: currProduct[0]
-    })
-  }
-
-  updateCurrCategory = (id) => {
-    this.setState({
-      currCategoryId: Number(id),
-      sort: 'default',
-      searchVal: '',
-      priceMin: '',
-      priceMax: '',
-    })
-
-    this.filterByCategory(Number(id))
-  }
-
-  updatePriceMin = (val) => {
-    this.setState({
-      priceMin: Number(val)
-    })
-  }
-
-  updatePriceMax = (val) => {
-    if (val > 0) {
-      this.setState({
-        priceMax: Number(val)
-      })
-    } else {
-      this.setState({
-        priceMax: ''
-      })
     }
   }
 
@@ -144,6 +103,90 @@ export default class App extends Component {
     }
   }
 
+  addToCart = (id) => {
+    const item = this.state.products.filter(product => product.id === Number(id))
+    this.state.cartItems.push(item[0])
+    this.setState({
+      cartItems: this.state.cartItems
+    })
+  }
+
+  removeFromCart = (id) => {
+    const cartItems = this.state.cartItems.filter(item => item.id !== Number(id))
+
+    this.setState({
+      cartItems: cartItems
+    })
+  }
+ 
+  updateSearch = (val) => {
+    this.setState({
+      searchVal: val,
+      sort: 'default'
+    })
+
+    this.filterBySearch(val)
+  }
+
+  updateCurrProduct = (id) => {
+    const currProduct = this.state.products.filter(product => product.id === Number(id))
+
+    this.setState({
+      currProduct: currProduct[0]
+    })
+
+    this.findRelatedProducts(currProduct[0])
+  }
+
+  findRelatedProducts = (currProd) => {
+    const searchStr = currProd.name.slice(0, 2) // find related products based on first two letters of name in same category
+    const relatedProducts = this.state.products.filter(product => product.name.includes(searchStr) && product.id !== currProd.id && product.categoryId === currProd.categoryId)
+
+    if(relatedProducts.length > 3) { // limit results to max of 3
+      const limitProducts = relatedProducts.slice(0, 3)
+
+      this.setState({
+        relatedProducts: limitProducts
+      })
+
+    } else {
+
+      this.setState({
+        relatedProducts: relatedProducts
+      })
+    }
+  }
+
+  updateCurrCategory = (id) => {
+    this.setState({
+      currCategoryId: Number(id),
+      sort: 'default',
+      searchVal: '',
+      priceMin: '',
+      priceMax: '',
+    })
+
+    this.filterByCategory(Number(id))
+  }
+
+  updatePriceMin = (val) => {
+    this.setState({
+      priceMin: Number(val)
+    })
+  }
+
+  updatePriceMax = (val) => {
+    if (val > 0) {
+      this.setState({
+        priceMax: Number(val)
+      })
+    } else {
+      this.setState({
+        priceMax: ''
+      })
+    }
+  }
+
   updateSort = (selection) => {
     this.setState({
       sort: selection
@@ -161,6 +204,7 @@ export default class App extends Component {
       products: this.state.products,
       displayProducts: this.state.displayProducts,
       currProduct: this.state.currProduct,
+      relatedProducts: this.state.relatedProducts,
       categories: this.state.categories,
       currCategoryId: this.state.currCategoryId,
       cartItems: this.state.cartItems,
@@ -174,7 +218,9 @@ export default class App extends Component {
       updatePriceMax: this.updatePriceMax,
       updateSort: this.updateSort,
       filterByPrice: this.filterByPrice,
-      updateCurrProduct: this.updateCurrProduct
+      updateCurrProduct: this.updateCurrProduct,
+      addToCart: this.addToCart,
+      removeFromCart: this.removeFromCart
     }
 
     return (

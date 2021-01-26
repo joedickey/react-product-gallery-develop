@@ -15,12 +15,15 @@
     line-height:31px;
     text-align:left;
     padding-left: 50px;
+    margin-bottom: 16px;
 }  
 
 .SearchBar_icon {
-    position: fixed;
+    display: block;
+    position: relative;
     color: rgba(123,123,123,1);
-    top: 73px;
-    margin-left: 15px;
+    top: 38px;
+    left: 15px;
+
     
 }

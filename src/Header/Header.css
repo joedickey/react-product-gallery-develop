@@ -14,3 +14,7 @@
     text-align:left;
     margin-right: 15px;
 }
+
+.Header_title:hover {
+    cursor: pointer;
+}

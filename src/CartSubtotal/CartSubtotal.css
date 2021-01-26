@@ -1,4 +1,15 @@
 .CartSubtotal {
     color: white;
     margin-left: 15px;
+    max-width: 200px;
+}
+
+#view_cart {
+    margin: 10px 0px 0px 0px;
+    text-decoration: underline
+}
+
+#view_cart:hover {
+    color: rgba(123, 123, 123, 0.8);
+    cursor: pointer;
 }
